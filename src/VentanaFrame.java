@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 /*
@@ -18,6 +19,9 @@ public class VentanaFrame extends javax.swing.JFrame {
 
    
     BufferedImage buffer = null;
+    
+    
+    Ellipse2D.Double auxiliar;
     
     
     
@@ -48,7 +52,7 @@ public class VentanaFrame extends javax.swing.JFrame {
    
     
     
-    //Override modificamos  un metodo manteniendo sus caracteristicas.
+    //Override modificamos  un metodo manteniendo sus caracteristicas (con super.paint mantiene sus carecteristicas).
     @Override
     public void  paint ( Graphics g) {
         super.paint(g);
@@ -77,6 +81,12 @@ public class VentanaFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        lienzo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lienzoMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout lienzoLayout = new javax.swing.GroupLayout(lienzo);
         lienzo.setLayout(lienzoLayout);
         lienzoLayout.setHorizontalGroup(
@@ -104,6 +114,17 @@ public class VentanaFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    private void lienzoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lienzoMousePressed
+        auxiliar = new Ellipse2D.Double (evt.getX(),evt.getY(),10,10);
+        Graphics2D g2 = (Graphics2D ) buffer.getGraphics();
+        g2.fill(auxiliar);
+        repaint(0,0,1,1);
+    }//GEN-LAST:event_lienzoMousePressed
+
+    
+    
     /**
      * @param args the command line arguments
      */
